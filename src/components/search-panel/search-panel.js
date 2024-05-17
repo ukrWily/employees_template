@@ -1,3 +1,5 @@
+import "./search-panel.css";
+
 const SearchPanel = () => {
   return (
     <input
@@ -7,3 +9,5 @@ const SearchPanel = () => {
     />
   );
 };
+
+export default SearchPanel;
