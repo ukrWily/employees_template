@@ -57,6 +57,7 @@
 
 .list-group-item.increase .list-group-item-label, .list-group-item.increase .list-group-item-input{
   color: #e09f3e;
+  text-shadow: 2px 2px 1px #000;
 }
 
 .list-group-item.increase .btn-star{
