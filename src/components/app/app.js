@@ -13,22 +13,60 @@ class App extends Component {
     super(props);
     this.state = {
       data: [
-        { name: "John", salary: 800, increase: true, id: 1 },
-        { name: "Alex", salary: 1000, increase: false, id: 2 },
-        { name: "Tina", salary: 1500, increase: true, id: 3 },
-        { name: "Carl", salary: 2500, increase: false, id: 4 },
-        { name: "Linda", salary: 2000, increase: false, id: 5 },
+        { name: "John", salary: 800, increase: false, rise: true, id: 1 },
+        { name: "Alex", salary: 1000, increase: false, rise: false, id: 2 },
+        { name: "Tina", salary: 1500, increase: false, rise: false, id: 3 },
       ],
     };
+    this.maxId = 4;
   }
 
   deleteItem = (id) => {
+    // this.maxId--;
     this.setState(({ data }) => {
       return {
         data: data.filter((item) => item.id !== id),
       };
     });
   };
+
+  addItem = (name, salary) => {
+    const newItem = {
+      name,
+      salary,
+      increase: false,
+      rise: false,
+      id: this.maxId++,
+    };
+    this.setState(({ data }) => {
+      const newArr = [...data, newItem];
+      return {
+        data: newArr,
+      };
+    });
+  };
+
+  onToggleIncrease = (id) => {
+    this.setState(({ data }) => {
+      const index = data.findIndex((item) => item.id === id);
+
+      const old = data[index];
+      const newItem = { ...old, increase: !old.increase };
+      const newArr = [
+        ...data.slice(0, index),
+        newItem,
+        ...data.slice(index + 1),
+      ];
+
+      return {
+        data: newArr,
+      };
+    });
+  };
+
+  onToggleRise(id) {
+    console.log(`Rise id: ${id}`);
+  }
 
   render() {
     return (
@@ -40,9 +78,14 @@ class App extends Component {
           <AppFilter />
         </div>
 
-        <EmployeesList data={this.state.data} onDelete={this.deleteItem} />
+        <EmployeesList
+          data={this.state.data}
+          onDelete={this.deleteItem}
+          onToggleIncrease={this.onToggleIncrease}
+          onToggleRise={this.onToggleRise}
+        />
 
-        <EmployeesAddForm />
+        <EmployeesAddForm onAdd={this.addItem} />
       </div>
     );
   }
