@@ -12,6 +12,7 @@ class SearchPanel extends Component {
   onUpdateSearch = (e) => {
     const term = e.target.value;
     this.setState({ term });
+    // Піднімаємо стан нагору у App.js
     this.props.onUpdateSearch(term);
   };
 

@@ -18,6 +18,7 @@ class App extends Component {
         { name: "Tina", salary: 1500, increase: false, rise: false, id: 3 },
       ],
       term: "",
+      filter: "",
     };
     this.maxId = 4;
   }
@@ -72,9 +73,21 @@ class App extends Component {
     this.setState({ term });
   };
 
+  filterPost = (items, filter) => {
+    switch (filter) {
+      case "rise":
+        return items.filter((item) => item.rise);
+      case "moreThen100":
+        return items.filter((item) => item.salary > 1000);
+      default:
+        return items;
+    }
+  };
+
   render() {
-    const { data, term } = this.state;
-    const visibleData = this.searchEmp(data, term);
+    const { data, term, filter } = this.state;
+    // Фільтруємо зразу по пошуку, потім передаємо на фільтр по шаблонам
+    const visibleData = this.filterPost(this.searchEmp(data, term), filter);
     return (
       <div className="app">
         <AppInfo data={data} />
