@@ -18,7 +18,7 @@ class App extends Component {
         { name: "Tina", salary: 1500, increase: false, rise: false, id: 3 },
       ],
       term: "",
-      filter: "",
+      filter: "all",
     };
     this.maxId = 4;
   }
@@ -84,6 +84,11 @@ class App extends Component {
     }
   };
 
+  onFilterSelect = (filter) => {
+    // Змінюємо у поточному стані фільтр
+    this.setState({ filter });
+  };
+
   render() {
     const { data, term, filter } = this.state;
     // Фільтруємо зразу по пошуку, потім передаємо на фільтр по шаблонам
@@ -94,7 +99,7 @@ class App extends Component {
 
         <div className="search-panel">
           <SearchPanel onUpdateSearch={this.onUpdateSearch} />
-          <AppFilter />
+          <AppFilter filter={filter} onFilterSelect={this.onFilterSelect} />
         </div>
 
         <EmployeesList
